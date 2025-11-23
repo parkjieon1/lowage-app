@@ -1,0 +1,7 @@
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
+numpy==1.26.0
+scikit-learn==1.4.0
+pydantic==1.10.12
+# If your model uses joblib, include it; pickle from stdlib also works
+joblib==1.3.2
