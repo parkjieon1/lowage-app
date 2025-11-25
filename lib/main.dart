@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/landing_page.dart';
-import 'pages/signup_page.dart';
 import 'pages/login_page.dart';
+import 'pages/signup_page.dart';
 import 'pages/loage_input_page.dart';
 import 'pages/loage_result_page.dart';
 import 'pages/dashboard_page.dart';
@@ -19,18 +19,18 @@ class LoAgeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LoAge',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        fontFamily: 'Roboto',
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/': (context) => const LandingPage(),
-        '/signup': (context) => const SignupPage(),
         '/login': (context) => const LoginPage(),
-        '/input_loage': (context) => const LoageInputPage(),
-        '/loage_result': (context) => const LoageResultPage(),
+        '/signup': (context) => const SignupPage(),
+        '/loage_input': (context) => const LoAgeInputPage(),
+        '/loage_result': (context) => const LoAgeResultPage(),
         '/dashboard': (context) => const DashboardPage(),
         '/mission_map': (context) => const MissionMapPage(),
         '/crew_battle': (context) => const CrewBattlePage(),

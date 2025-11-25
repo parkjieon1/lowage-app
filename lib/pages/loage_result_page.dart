@@ -1,71 +1,83 @@
 import 'package:flutter/material.dart';
 
-class LoageResultPage extends StatelessWidget {
-  const LoageResultPage({super.key});
+class LoAgeResultPage extends StatelessWidget {
+  const LoAgeResultPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
-    final label = args?['label'] as String? ?? '측정값 없음';
-    final weakness = args?['weakness'] as String? ?? '-';
-    final summary = args?['scoreSummary'] as String? ?? '';
+    final loAgeLabel = args?['lo_age_label']?.toString() ?? '알 수 없음';
+    final percentile = args?['percentile']?.toString() ?? '-';
+    final weakPoint = args?['weak_point']?.toString() ?? '없음';
 
     return Scaffold(
       appBar: AppBar(title: const Text('신체나이 진단서')),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '이번 측정 결과',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 16),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('신체나이'),
-                    const SizedBox(height: 8),
-                    Text(
-                      label,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 16),
-                    const Text('주요 취약점'),
-                    const SizedBox(height: 8),
-                    Text(
-                      weakness,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(color: Colors.redAccent),
-                    ),
-                    if (summary.isNotEmpty) ...[
-                      const SizedBox(height: 16),
-                      Text(summary),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Card(
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '신체나이',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        loAgeLabel,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text('상위 퍼센타일: $percentile%'),
                     ],
-                  ],
+                  ),
                 ),
               ),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/dashboard', (route) => false);
-                },
-                child: const Text('확인'),
+              const SizedBox(height: 16),
+              Card(
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.warning_amber, color: Colors.orange),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text('취약점: $weakPoint'),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+              const Spacer(),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // 결과 확인 후: 결과 화면 > 홈화면
+                    Navigator.pushReplacementNamed(context, '/dashboard');
+                  },
+                  child: const Text('확인'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
